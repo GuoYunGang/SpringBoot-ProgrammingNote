@@ -1,0 +1,29 @@
+# yaml对空格的要求非常敏感，它可以注入到我们的配置类中去。
+
+# 切换运行哪个配置文件
+# application-test.yaml  表示测试配置文件
+# application-dev.yaml  表示开发配置文件
+#不指定就是使用默认的application.yaml配置文件
+#不同的配置文件可以使用“---”分开。但是还是建议分开文件写
+# 指定运行哪个配置文件
+#spring:
+#  profiles:
+#    active: dev
+
+person:
+  name: 1330439415@qq.com
+  age: 20
+  happy: false
+  birth: 2020/8/22
+  maps: {k1:v1,k2:v2}
+  lists:
+    - code
+    - music
+    - girl
+  dog:
+    name: 旺财
+    age: 3
+
+dog:
+   name: 旺财二号
+   age: 5
