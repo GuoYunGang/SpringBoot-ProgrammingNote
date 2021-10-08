@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gyg.mapper.EmployeeMapper">
+
+    <!--返回员工和对应的部门信息-->
+    <resultMap id="withDepartResultMap" type="Employee">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="lastName" jdbcType="VARCHAR" property="lastName"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="gender" jdbcType="INTEGER" property="gender"/>
+        <result column="d_id" jdbcType="INTEGER" property="did"/>
+        <result column="birth" jdbcType="DATE" property="birth"/>
+        <association property="department" javaType="Department">
+            <id column="d_id" jdbcType="INTEGER" property="id"/>
+            <result column="departmentName" jdbcType="VARCHAR" property="departmentName"/>
+        </association>
+    </resultMap>
+
+    <!--List<Employee> queryAllEmp();-->
+    <select id="queryAllEmp" resultMap="withDepartResultMap">
+        SELECT * FROM employee LEFT JOIN department ON employee.d_id=department.id
+    </select>
+
+    <!--Employee queryEmpById(int id);-->
+    <select id="queryEmpById" resultMap="withDepartResultMap">
+        SELECT * FROM employee LEFT JOIN department ON employee.d_id=department.id WHERE employee.id=#{id}
+    </select>
+
+    <!--int addEmp(Employee employee);-->
+    <insert id="addEmp" parameterType="Employee">
+        insert into employee (id,lastName,email,gender,d_id,birth) values (#{id},#{lastName},#{email},#{gender},#{did},#{birth});
+    </insert>
+
+    <!-- int updateEmp(Employee employee);-->
+    <update id="updateEmp" parameterType="Employee">
+        update employee set lastName = #{lastName},email=#{email},gender=#{gender},d_id=#{did},birth=#{birth} where id=#{id};
+    </update>
+
+    <!--int deleteEmpById(int id);-->
+    <delete id="deleteEmpById" parameterType="int">
+        delete from employee where id=#{id}
+    </delete>
+
+</mapper>
