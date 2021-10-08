@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gyg.mapper.UserMapper">
+    <!--List<Employee> queryEmployee();-->
+    <select id="queryEmployee" resultType="Employee">
+        select * from t_employee
+    </select>
+
+    <!--Employee queryEmployeeByID(int id);-->
+    <select id="queryEmployeeByID" resultType="Employee">
+        select * from t_employee where id=#{id};
+    </select>
+
+    <!--int addEmployee(Employee employee);-->
+    <insert id="addEmployee" parameterType="Employee">
+        insert into t_employee (id,empName,email,gender) values (#{id},#{empName},#{email},#{gender});
+    </insert>
+
+    <!--int updateEmployee(Employee employee);-->
+    <update id="updateEmployee" parameterType="Employee">
+        update t_employee set empName=#{empName},email=#{email},gender=#{gender} where id=#{id}
+    </update>
+
+    <!--int deleteEmployee(int id);-->
+    <delete id="deleteEmployee" parameterType="int">
+        delete from t_employee where id=#{id}
+    </delete>
+
+</mapper>
